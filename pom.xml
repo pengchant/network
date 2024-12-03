@@ -22,14 +22,30 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- OpenCV -->
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>opencv-platform</artifactId>
+      <version>4.7.0-1.5.9</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-controls</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-fxml</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-graphics</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- JavaCV (用于视频处理和编码解码) -->
     <dependency>
       <groupId>org.bytedeco</groupId>
       <artifactId>javacv</artifactId>
-      <version>1.5.8</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco</groupId>
-      <artifactId>javacv-platform</artifactId>
       <version>1.5.8</version>
     </dependency>
 
