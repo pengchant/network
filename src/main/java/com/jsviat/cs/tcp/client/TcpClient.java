@@ -10,11 +10,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * 打包成jar包后: java "-Dfile.encoding=UTF-8" -jar .\tcp-client.jar --port 12345 --host localhost
+ * 打包成jar包后: java "-Dfile.encoding=UTF-8" -jar .\tcp-client.jar --port 12345 --host 192.168.1.17.1
  */
 public class TcpClient {
-    private String SERVER_ADDRESS = "localhost";
-    private int SERVER_PORT = 12345;
+    private static String SERVER_ADDRESS = "localhost";
+    private static int SERVER_PORT = 12345;
+
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
@@ -44,17 +45,19 @@ public class TcpClient {
             }
         }
 
-        // 输出解析的结果
-        System.out.println("参数：Host: " + host);
-        System.out.println("参数：Port: " + port);
+        if (host != null && !host.isEmpty()) {
+            SERVER_ADDRESS = host;
+        }
+        if (port > 0) {
+            SERVER_PORT = port;
+        }
 
+        System.out.println("===>当前host:" + SERVER_ADDRESS + "，当前端口：" + SERVER_PORT);
 
         // 启动客户端服务
-        String finalHost = host;
-        int finalPort = port;
         SwingUtilities.invokeLater(() -> {
             try {
-                new TcpClient().createAndShowGUI(finalHost, finalPort);
+                new TcpClient().createAndShowGUI();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -68,16 +71,7 @@ public class TcpClient {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    private void createAndShowGUI(String host, int port) {
-        if (host != null && !host.isEmpty()) {
-            SERVER_ADDRESS = host;
-        }
-        if (port > 0) {
-            SERVER_PORT = port;
-        }
-
-        System.out.println("===>当前host:" + SERVER_ADDRESS + "，当前端口：" + SERVER_PORT);
-
+    private void createAndShowGUI() {
         frame = new JFrame("TCP 聊天室,当前用户(" + this.uid + ")");
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
