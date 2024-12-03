@@ -26,6 +26,8 @@ target/
 /nbbuild/
 /dist/
 /nbdist/
+out/
+META-INF/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
